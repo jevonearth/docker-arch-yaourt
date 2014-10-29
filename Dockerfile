@@ -1,11 +1,12 @@
 #
 # Dockerfile for Arch with yaourt installed
-FROM base/arch
+FROM base/archlinux
 MAINTAINER Jev Bjorsell, @jevonearth
 
+RUN sed 's/^CheckSpace/#CheckSpace/g' -i /etc/pacman.conf
+RUN pacman --quiet --noconfirm -Syu
 RUN pacman --quiet --noconfirm -S base-devel
 RUN pacman --quiet --noconfirm -S yajl
-
 
 WORKDIR /tmp/scratch
 RUN curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz | tar zx
